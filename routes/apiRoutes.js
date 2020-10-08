@@ -21,10 +21,8 @@ module.exports = function (app, fs) {
       let parsedJson = JSON.parse(data);
       let newNote = req.body;
       newNote.id = `${Object.keys(parsedJson).length + 1}`;
-      console.log(parsedJson);
       data = parsedJson;
       parsedJson.push(newNote);
-      console.log(parsedJson);
 
       fs.writeFile(jsonData, JSON.stringify(data), "utf8", (err) => {
         res.send("added new data");
@@ -38,9 +36,7 @@ module.exports = function (app, fs) {
   app.delete("/api/notes/:id", (req, res) => {
     fs.readFile(jsonData, "utf8", (err, data) => {
       let parsedJson = JSON.parse(data);
-      console.log(req.params["id"]);
       const noteId = req.params["id"];
-      console.log(parsedJson);
       let newArr = parsedJson.filter((note) => {
         return note.id !== noteId;
       });
